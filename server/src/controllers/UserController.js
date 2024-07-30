@@ -1,21 +1,76 @@
+const { where } = require('sequelize');
+const { User } = require('../models');
+const User = require('../models/User');
+
 module.exports = {
-    index(req, res) {
-        res.send('All Users');
+    async index(req, res) {
+        try {
+            const user = await User.findAll()
+            res.send(User)
+        } catch (err) {
+            res.status(500).send({
+                error: " The users infromation was "
+            })
+        }
     },
 
-    create(req, res) {
-        res.send('User Details: ' + req.params.userId);
+    async create(req, res) {
+        try {
+            const user = await User.create(req.body)
+            res.send(user.toJSON())
+        } catch (err) {
+            res.status(500).send({
+                error: "Create user incorrect"
+            })
+        }
     },
 
-    put(req, res) {
-        res.send('User Created: ' + JSON.stringify(req.body));
+
+    async put(req, res) {
+        try {
+            await User.update(req.body, {
+                where: {
+                    id: req.params.userId
+                }
+            })
+            res.send(req.body)
+        } catch (err) {
+            res.status(500).send({
+                error: "Update user incorrect"
+            })
+        }
     },
 
-    show(req, res) {
-        res.send('User Updated: ' + req.params.userId + ' with data: ' + JSON.stringify(req.body));
+
+    async remove(req, res) {
+        try {
+            const user = await User.findOne({
+                where: {
+                    id: req.params.userId
+                }
+            })
+            if (!user) {
+                return res.status(403).send({
+                    error: "The user infromation was incorrect"
+                })
+            }
+            await user.destroy()
+            res.send(user)
+        } catch (err) {
+            res.status(500).send({
+                error: "The user information was incorrect"
+            })
+        }
     },
 
-    remove(req, res) {
-        res.send('User Deleted: ' + req.params.userId);
+    async show(req, res) {
+        try {
+            const user = await User.findByP(req.params.userId)
+            res.send(user)
+        } catch (err) {
+            res.status(500).send({
+                error: "The user information was incorrect"
+            })
+        }
     },
 }
