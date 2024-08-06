@@ -1,6 +1,6 @@
 const { where } = require('sequelize');
 const { User } = require('../models');
-const User = require('../models/User');
+
 
 module.exports = {
     async index(req, res) {

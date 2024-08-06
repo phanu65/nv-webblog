@@ -3,7 +3,6 @@ const UserController = require('./controllers/UserController'); // Adjust the pa
 module.exports = (app) => {
     // Create user
     app.post('/user', UserController.create);
-
     // Update user
     app.put('/user/:userId', UserController.put);
 
