@@ -9,10 +9,10 @@ import Login from '@/components/Login'
 
 import CommentIndex from '@/components/Comments/index' 
 
-import BlogIndex from '@/components/Blogs/index'
-import BlogCreate from '@/components/Blogs/CreateBlog'
-import BlogShow from '@/components/Blogs/ShowBlog'
-import BlogEdit from '@/components/Blogs/EditBlog'
+import MedicineIndex from '@/components/Medicines/index'  // เปลี่ยนจาก Blogs เป็น Medicines
+import MedicineCreate from '@/components/Medicines/CreateMedicine'  // เปลี่ยนจาก CreateBlog เป็น CreateMedicine
+import MedicineShow from '@/components/Medicines/ShowMedicine'  // เปลี่ยนจาก ShowBlog เป็น ShowMedicine
+import MedicineEdit from '@/components/Medicines/EditMedicine'  // เปลี่ยนจาก EditBlog เป็น EditMedicine
 
 import Upload from '@/components/Util/Upload'
 
@@ -47,24 +47,24 @@ export default new Router({
       component: Login
     },
     {
-      path: '/blogs',
-      name: 'blogs',
-      component: BlogIndex
+      path: '/medicines',  // เปลี่ยนจาก /blogs เป็น /medicines
+      name: 'medicines',  // เปลี่ยนจาก blogs เป็น medicines
+      component: MedicineIndex
     },
     {
-      path: '/blog/create',
-      name: 'blog-create',
-      component: BlogCreate
+      path: '/medicine/create',  // เปลี่ยนจาก /blog/create เป็น /medicine/create
+      name: 'medicine-create',  // เปลี่ยนจาก blog-create เป็น medicine-create
+      component: MedicineCreate
     },
     {
-      path: '/blog/edit/:blogId',
-      name: 'blog-edit',
-      component: BlogEdit
+      path: '/medicine/edit/:medicineId',  // เปลี่ยนจาก /blog/edit/:blogId เป็น /medicine/edit/:medicineId
+      name: 'medicine-edit',  // เปลี่ยนจาก blog-edit เป็น medicine-edit
+      component: MedicineEdit
     },
     {
-      path: '/blog/:blogId',
-      name: 'blog',
-      component: BlogShow
+      path: '/medicine/:medicineId',  // เปลี่ยนจาก /blog/:blogId เป็น /medicine/:medicineId
+      name: 'medicine',  // เปลี่ยนจาก blog เป็น medicine
+      component: MedicineShow
     },
     {
       path: '/comments',

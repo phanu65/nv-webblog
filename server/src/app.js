@@ -1,28 +1,30 @@
-let express = require('express');
-// import body parser
-let bodyParser = require('body-parser');
+const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const { sequelize } = require('./models');
 const config = require('./config/config');
 
-
 const app = express();
-// use body parser middleware
+
+// ใช้งาน middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use('/assets', express.static('public'));
 
-// import routes
+// นำเข้ารูท
+require('./userPassport'); // หากมีการจัดการผู้ใช้
+require('./routes')(app); // เรียกใช้ router ที่กำหนดไว้
 
-require('./userPassport');
-require('./routes')(app);
+const port = config.port || 3000; // ใช้พอร์ตจาก config หรือ 3000
 
-
-let port = config.port;
-
-sequelize.sync({ force: false }).then(() => {
-    app.listen(port, function () {
-        console.log('Server running on ' + port)
+// เชื่อมต่อกับฐานข้อมูลและเริ่มเซิร์ฟเวอร์
+sequelize.sync({ force: false })
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Server running on port ${port}`);
+        });
     })
-})
+    .catch((error) => {
+        console.error('Unable to connect to the database:', error);
+    });
